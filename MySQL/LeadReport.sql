@@ -69,8 +69,53 @@ ORDER BY c.client_id, s.domain_name
 ;
 
 -- 8. What query would you run to get a list of site owners who had leads, and the total of each for the whole 2012?
-
+SELECT 
+	concat(c.first_name, ' ', c.last_name) AS client,
+    count(l.leads_id) AS number_of_leads
+FROM 
+	lead_gen_business.clients c
+JOIN 
+	lead_gen_business.sites s
+    ON s.client_id = c.client_id
+JOIN 
+	lead_gen_business.leads l
+    ON l.site_id = s.site_id
+    WHERE 
+		year(l.registered_datetime) = '2012'
+GROUP BY c.client_id
+;
 
 -- 9. What query would you run to get a list of site owners and the total # of leads we've generated for each owner per month for the first half of Year 2012?
 
+SELECT 
+    concat(c.first_name, ' ', c.last_name) AS client,
+    count(l.leads_id) AS number_of_leads,
+    monthname(l.registered_datetime) AS month
+FROM
+    lead_gen_business.clients c
+JOIN
+    lead_gen_business.sites s
+    ON s.client_id = c.client_id
+JOIN
+    lead_gen_business.leads l
+    ON l.site_id = s.site_id
+WHERE
+    year(l.registered_datetime) = '2012'
+    AND month(l.registered_datetime) BETWEEN 1 AND 6
+GROUP BY  c.client_id, month
+ORDER BY MONTH(l.registered_datetime), client
+;
+
 -- 10. Write a single query that retrieves all the site names that each client owns and its total count. Group the results so that each row shows a new client. (Tip: use GROUP_CONCAT)
+SELECT 
+	concat(c.first_name, ' ', c.last_name) AS client_name,
+    count(s.site_id) AS number_of_sites,
+    group_concat(s.domain_name) AS sites
+FROM 
+	lead_gen_business.sites s
+RIGHT JOIN 
+	lead_gen_business.clients c
+    ON c.client_id = s.client_id
+GROUP BY 
+	c.client_id
+;

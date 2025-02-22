@@ -1,0 +1,23 @@
+VARCHAR
+ - Best example: email, first_name, last_name
+
+CHAR
+    - Best example: state_abbreviation, country_abbrevation
+
+INT
+    - Best example: id, phone_number, zip_code
+
+BIGINT
+    - Best example: id, order_id
+
+TINYINT
+    - item_availability, user_access_level
+
+FLOAT
+    - Best example: height, weight
+
+TEXT
+    - Best example: message, comment, description
+
+DATETIME
+    - Best example: created_at, updated_at

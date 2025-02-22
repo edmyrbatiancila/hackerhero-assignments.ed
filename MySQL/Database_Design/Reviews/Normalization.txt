@@ -1,0 +1,8 @@
+Form #1: Each Column in your table can only have 1 value.
+    - You should not have a name column in your table that lists the first name, middle name, and last name all separated by space.
+
+Form #2: Each Column in your table that is not a key(primary or foreign) must have a unique values.
+    - If you have a lessons table with a subject column, you should not have a subject repeated more than once.
+
+Form #3: You cannot have a non-key column that is dependent on another non-key column.
+    - If you have an items table with columns seller_name and seller_address, both columns should be separated into a separate table and linked to itmes with a foreign key. The seller_address is dependent on the seller_name and neither column is a key column.
